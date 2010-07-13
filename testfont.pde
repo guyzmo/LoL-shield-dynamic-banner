@@ -29,7 +29,7 @@
 
 #include "WProgram.h"
 
-#define MAX_STR 1024
+#define MAX_STR 128
 //#define DEFAULT_TEXT "HACK ME ON HTTP://192.168.69.163/"
 
 char* disp;
