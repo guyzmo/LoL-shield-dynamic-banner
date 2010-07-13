@@ -1,0 +1,26 @@
+FEATURES
+
+It prints everything sent on the serial line of the arduino, as a banner
+on Jimmie P Rodger's LoLShield.
+
+<http://jimmieprodgers.com/kits/lolshield/>
+
+This code is intended to be compiled and uploaded using the Arduino IDE.
+
+KNOWN BUGS AND TODO
+
+ * Anything that is sent is split in two strings : the first letter, then 10 
+  seconds later the remaining of the word. 
+  
+  e.g. : sending "FOOBAR" gives "F" ... "OOBAR"
+
+   The only solution I found that correct this is to constantly write something on
+  the serial line. But when I listen on the serial line with python, it's flooding
+  the serial input buffer.
+
+ * I tried to use dynamic allocation for the displayed string, using malloc/calloc
+  but then the program does not work anymore (it seems to be because of the atmega
+  getting out of memory...).
+
+  The solution I'm thinking of would be to reduce the memory footprint of the fonts
+  sent to the arduino, hacking the font lib.
