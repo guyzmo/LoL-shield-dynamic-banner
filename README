@@ -7,16 +7,12 @@ on Jimmie P Rodger's LoLShield.
 
 This code is intended to be compiled and uploaded using the Arduino IDE.
 
+(it shall be checked out in a directory called "testfont" or arduino won't 
+compile it)
+
 KNOWN BUGS AND TODO
 
- * Anything that is sent is split in two strings : the first letter, then 10 
-  seconds later the remaining of the word. 
-  
-  e.g. : sending "FOOBAR" gives "F" ... "OOBAR"
-
-   The only solution I found that correct this is to constantly write something on
-  the serial line. But when I listen on the serial line with python, it's flooding
-  the serial input buffer.
+ * Limitation to 13 characters maximum. Needs to improve the display function
 
  * I tried to use dynamic allocation for the displayed string, using malloc/calloc
   but then the program does not work anymore (it seems to be because of the atmega

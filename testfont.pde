@@ -1,8 +1,10 @@
 /*
   TEXT SAMPLE CODE for LOL Shield for Arduino
  Copyright 2009/2010 Benjamin Sonntag <benjamin@sonntag.fr> http://benjamin.sonntag.fr/
+ and copyright 2010 Guyzmo <guyzmo_AT_m0g.net> http://i.got.nothing.to/post/2010/07/13/Hacking-the-arduino-s-LoLshield
  
  History:
+        2010-07-11 - V2.0 dynamic FONT Drawing from serial line, at Bordeaux after 11th RMLL ;)
  	2009-12-31 - V1.0 FONT Drawing, at Berlin after 26C3 ;) 
  
  This program is free software; you can redistribute it and/or modify
@@ -27,7 +29,7 @@
 
 #include "WProgram.h"
 
-#define MAX_STR 128
+#define MAX_STR 1024
 //#define DEFAULT_TEXT "HACK ME ON HTTP://192.168.69.163/"
 
 char* disp;
@@ -60,7 +62,6 @@ void display (char* test, int size) {
     }  
     delay(80);
   }
-  //  delay(3000);
   LedSign::Clear();
 }
 
@@ -75,15 +76,21 @@ void loop()                     // run over and over again
 
     while (Serial.available()>0 && i < MAX_STR) {
         c = Serial.read();
+        
+        if (c >= 97 && c <= 122) c -= 32; // Make all lowercase to uppercase
+           
         Serial.write(c);
         disp[i++] = c;
+        
+        delay(1);
     }
     
     //Serial.write('\n in stack');
     //Serial.write(disp);
     //Serial.write('\n in display()');
     if (i != 0)
-        display(disp,i);
+        while (Serial.available() == 0)
+            display(disp,i);
 }
 
 
