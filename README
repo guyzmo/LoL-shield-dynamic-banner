@@ -7,16 +7,36 @@ on Jimmie P Rodger's LoLShield.
 
 This code is intended to be compiled and uploaded using the Arduino IDE.
 
-(it shall be checked out in a directory called "testfont" or arduino won't 
+(it shall be checked out in a directory called "dispfont" or arduino won't 
 compile it)
 
-KNOWN BUGS AND TODO
+To generate new fonts, edit 'glyphs.lolshield' file follow the same pattern
+as for other fonts. Then execute in your favorite shell :
 
- * Limitation to 13 characters maximum. Needs to improve the display function
+   % bc glyphs.lolshield | python transform_glyph.py
 
- * I tried to use dynamic allocation for the displayed string, using malloc/calloc
-  but then the program does not work anymore (it seems to be because of the atmega
-  getting out of memory...).
+yeah, that's weird... but that's why I kept it that way :)
 
-  The solution I'm thinking of would be to reduce the memory footprint of the fonts
-  sent to the arduino, hacking the font lib.
+then update the dispfont.pde with that code.
+
+KNOWN BUGS
+
+Fonts are ugly...
+
+TODO
+
+Separate the font code from the .pde file.
+
+Improve the glyphs, add more glyphs.
+Separate the scrolling function from the main loop.
+Reduce flash memory footprint by checking whether some RLE or Huffman can compress correctly the glyphs.
+
+COPYRIGHT
+
+Guyzmo's code is always WTFPL <http://sam.zoy.org/wtfpl/>, and everything else is GPL.
+
+REFENCES
+
+<http://github.com/guyzmo/LoL-shield-dynamic-banner>
+<http://i.got.nothing.to/post/2010/07/13/Hacking-the-arduino-s-LoLshield>
+
