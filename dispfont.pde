@@ -30,6 +30,8 @@
 
 #include <inttypes.h>
 
+namespace LolGlyph {
+
 //const short unsigned int GLYPH_71[] = { 0x0, 0x1010, 0x200, 0x200, 0x1010, 0x200, 0x200, 0x200, 0x0 };
 //const short unsigned int GLYPH_72[] = { 0x0, 0x1001, 0x200, 0x200, 0x202, 0x200, 0x200, 0x1001, 0x0 };
 
@@ -143,36 +145,35 @@ void WriteString(char* str, int x_off, int y_off) {
 }
 
 char disp[140];
-int x_offset, disp_len;
+int x_offset, disp_len, x_direction, x_stop, x_start;
 
-/* -----------------------------------------------------------------  */
-/** MAIN program Setup
- */
-void setup()                    // run once, when the sketch starts
-{
-  LedSign::Init();
-  Serial.begin(9600);
-  strcpy(disp,"HACK ME ON http://192.168.69.163");
-  disp_len = strlen(disp)*6;
-  x_offset=disp_len+10;
-  
+void ScrollLeft_setup() {
+   x_offset=disp_len+10;
+   x_direction=-1;
+   x_stop=0;
+   x_start=disp_len+10;
+}
+void ScrollRight_setup() {
+   x_offset=disp_len+10;
+   x_direction=+1;
+   x_stop=(disp_len+10);
+   x_start=0;
 }
 
-/* -----------------------------------------------------------------  */
-/** MAIN program Loop
- */
-void loop()                     // run over and over again
-{ 
+void Scroll() {
+  if (x_offset == x_stop)
+      x_offset=x_start;
+  
+  x_offset += x_direction;
+};
+
+void UpdateTextFromSerial_setup() {
+  disp_len = strlen(disp)*6;
+}
+void UpdateTextFromSerial() {
   int i=0;
-  char c; 
-  
-  if (x_offset == 0)
-      x_offset=(disp_len+10);
-      
-  x_offset-=1;
-  
-  
-  while (Serial.available() > 0 && i < 140) {
+  char c;
+   while (Serial.available() > 0 && i < 140) {
       c = Serial.read();
       Serial.write(c);
       disp[i++] = c;
@@ -182,7 +183,38 @@ void loop()                     // run over and over again
       disp_len = strlen(disp)*6;
       disp[i] = '\0';
   }
+}
+
+void WriteScrollingText () {
+  Scroll();
   WriteString(disp, x_offset-(disp_len), 0);
-  
+}
+
+void WriteText(char * text) {
+  strcpy(disp,text);
+  WriteString(disp, x_offset, 0);
+}
+
+}; // namespace LolGlyph
+
+/* -----------------------------------------------------------------  */
+/** MAIN program Setup
+ */
+void setup()                    // run once, when the sketch starts
+{
+  LedSign::Init();
+  Serial.begin(9600);
+  LolGlyph::WriteText("HACK ME ON http://192.168.69.163");
+  LolGlyph::UpdateTextFromSerial_setup();
+  LolGlyph::ScrollLeft_setup();
+}
+
+/* -----------------------------------------------------------------  */
+/** MAIN program Loop
+ */
+void loop()                     // run over and over again
+{ 
+  LolGlyph::UpdateTextFromSerial();
+  LolGlyph::WriteScrollingText();
   delay(60);
 }
