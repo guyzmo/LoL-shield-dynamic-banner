@@ -25,10 +25,7 @@ Fonts are ugly...
 
 TODO
 
-Separate the font code from the .pde file.
-
 Improve the glyphs, add more glyphs.
-Separate the scrolling function from the main loop.
 Reduce flash memory footprint by checking whether some RLE or Huffman can compress correctly the glyphs.
 
 COPYRIGHT

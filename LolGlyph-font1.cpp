@@ -22,33 +22,10 @@
  Foundation, Inc., 59 Temple Place - Suite 330,
  Boston, MA 02111-1307, USA.
  */
+#ifndef __LOLGLYPH__H_
+#define __LOLGLYPH__H_
 
-//#include "MemoryFree.h"
-#include "Charliplexing.h"
+namespace LolGlyph {
+}; // namespace LolGlyph
 
-#include "WProgram.h"
-
-#include "LolGlyph_font1.h"
-#include "LolGlyph.h"
-
-/* -----------------------------------------------------------------  */
-/** MAIN program Setup
- */
-void setup()                    // run once, when the sketch starts
-{
-  LedSign::Init();
-  Serial.begin(9600);
-  LolGlyph::WriteText("HACK ME ON http://192.168.69.163");
-  LolGlyph::UpdateTextFromSerial_setup();
-  LolGlyph::ScrollLeft_setup();
-}
-
-/* -----------------------------------------------------------------  */
-/** MAIN program Loop
- */
-void loop()                     // run over and over again
-{ 
-  LolGlyph::UpdateTextFromSerial();
-  LolGlyph::WriteScrollingText();
-  delay(60);
-}
+#endif
