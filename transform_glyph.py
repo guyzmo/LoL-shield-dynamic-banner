@@ -26,4 +26,17 @@ for i in range(0,127):
         glyph_l += ["&GLYPH_"+str(i)+" /* "+repr(chr(i))+" */"]
 
 print
+print "#ifndef __LOLGLYPH_NEW_FONT__H_"
+print "#define __LOLGLYPH_NEW_FONT__H_"
+print
+
+print "namespace LolGlyph {"
+print
+
 print "const void* glyphs[] = { "+", ".join(glyph_l)+" };"
+
+print
+print "};"
+
+print
+print "#endif"

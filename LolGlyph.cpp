@@ -51,12 +51,12 @@ void WriteChar(char c, int x_off, int y_off) {
     character = (uint8_t*)glyphs[c];
 
     int y;
-    for (y=0; y<9; ++y) {
-      int mask=32;
+    for (y=1; y<10; ++y) {
+      int mask=2<<(character[0]-1);
       int x=0;
       while (mask>0) {
         if (x+x_off <= 13 && x+x_off >= 0)
-            LedSign::Set(x+x_off,y+y_off,(mask&character[y])>0?1:0);
+            LedSign::Set(x+x_off,(y-1)+y_off,(mask&character[y])>0?1:0);
     
         mask>>=1;
         ++x;
