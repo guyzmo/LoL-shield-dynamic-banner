@@ -33,7 +33,6 @@
 #include <inttypes.h>
 #include <string.h>
 #include "LolGlyph.h"
-//#include "LolGlyph_font1.h"
 
 namespace LolGlyph {
   
