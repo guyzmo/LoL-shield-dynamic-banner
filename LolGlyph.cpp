@@ -97,9 +97,6 @@ void Scroll() {
   x_offset += x_direction;
 };
 
-void UpdateTextFromSerial_setup() {
-  disp_len = strlen(disp)*6;
-}
 void UpdateTextFromSerial() {
   int i=0;
   char c;
@@ -122,6 +119,7 @@ void WriteScrollingText () {
 
 void WriteText(char * text) {
   strcpy(disp,text);
+  disp_len = strlen(disp)*6;
   WriteString(disp, x_offset, 0);
 }
 

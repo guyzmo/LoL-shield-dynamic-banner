@@ -43,11 +43,6 @@ void ScrollLeft_setup();
  * This function is to be called in setup() function */
 void ScrollRight_setup();
 
-
-/* Function that initiate serial line communication
- * To be called inside the setup() function */
-void UpdateTextFromSerial_setup();
-
 /* Function that gets the text from serial line
  * To be called inside loop() function */
 void UpdateTextFromSerial();
