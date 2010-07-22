@@ -39,7 +39,6 @@ void setup()                    // run once, when the sketch starts
   LedSign::Init();
   Serial.begin(9600);
   LolGlyph::WriteText("HACK ME ON http://play.pyaler.org");
-  LolGlyph::UpdateTextFromSerial_setup();
   LolGlyph::ScrollLeft_setup();
 }
 
