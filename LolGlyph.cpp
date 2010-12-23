@@ -44,7 +44,7 @@ char disp[140];
 int x_offset, disp_len, x_direction, x_stop, x_start;
 
 
-void WriteChar(char c, int x_off, int y_off) {
+int WriteChar(char c, int x_off, int y_off) {
     uint8_t* character;
 
     character = (uint8_t*)glyphs[c];
@@ -61,32 +61,33 @@ void WriteChar(char c, int x_off, int y_off) {
         ++x;
       }
     }
+    
+    return character[0];
 }
 
 void WriteString(char* str, int x_off, int y_off) {
-    const int c_off = 6;
+    int c_off = 0;
     
     LedSign::Clear();
   
     int i = 0;
     char c = str[i];
     while (c != '\0') {
-      WriteChar(c, x_off+(c_off*i++), y_off);
-      
-      c = str[i];
+      c_off += WriteChar(c, x_off+(c_off), y_off);
+      c = str[++i];
     } 
 }
 
 void ScrollLeft_setup() {
-   x_offset=disp_len+10;
+   x_offset=disp_len+13;
    x_direction=-1;
    x_stop=0;
-   x_start=disp_len+10;
+   x_start=disp_len+13;
 }
 void ScrollRight_setup() {
-   x_offset=disp_len+10;
+   x_offset=disp_len+13;
    x_direction=+1;
-   x_stop=(disp_len+10);
+   x_stop=(disp_len+13);
    x_start=0;
 }
 
@@ -105,10 +106,11 @@ void UpdateTextFromSerial() {
       Serial.write(c);
       disp[i++] = c;
       delay(1);
-  }
+  }  
   if (i != 0) { 
-      disp_len = strlen(disp)*6;
+      disp_len = i*6;
       disp[i] = '\0';
+      ScrollLeft_setup();
   }
 }
 

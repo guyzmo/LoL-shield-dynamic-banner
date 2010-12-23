@@ -49,5 +49,5 @@ void loop()                     // run over and over again
 { 
   LolGlyph::UpdateTextFromSerial();
   LolGlyph::WriteScrollingText();
-  delay(60);
+  delay(180);
 }

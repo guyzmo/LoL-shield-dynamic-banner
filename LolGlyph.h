@@ -27,8 +27,8 @@
 
 namespace LolGlyph {
 
-/* Function that draws character c at position x_off:y_off on the lolshield */
-void WriteChar(char c, int x_off, int y_off);
+/* Function that draws character c at position x_off:y_off on the lolshield that returns the glyph's width */
+int WriteChar(char c, int x_off, int y_off);
 
 /* Function that writes str at position x_off:y_off on the lolshield (with an offset of LolGlyph::x_offset) */
 void WriteString(char* str, int x_off, int y_off);
